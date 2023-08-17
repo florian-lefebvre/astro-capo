@@ -1,0 +1,10 @@
+{
+  "name": "astro-capo",
+  "version": "0.0.1",
+  "description": "Capo.js integration for Astro",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Florian Lefebvre",
+  "license": "MIT"
+}
