@@ -24,3 +24,18 @@ export const onRequest = sequence(withCapo);
 ```
 
 That's it
+
+## Development
+
+Having Corepack is recommended
+
+```
+pnpm i --frozen-lockfile
+```
+
+Run 2 terminals:
+
+```
+pnpm --filter astro-capo dev
+pnpm --filter playground dev
+```
