@@ -1,5 +1,6 @@
 {
-  "name": "astro-capo",
+  "name": "root",
+  "private": true,
   "version": "0.0.1",
   "description": "Capo.js integration for Astro",
   "main": "index.js",
