@@ -2,6 +2,7 @@ import { renderDOMHead } from "@unhead/dom";
 import { defineMiddleware } from "astro/middleware";
 import { JSDOM } from "jsdom";
 import { createHead, CapoPlugin } from "unhead";
+import { isProduction } from "std-env";
 
 // Taken from https://github.com/nuxt/nuxt/pull/22179/files#diff-db3a4ecfe5a4e5a379ed2f515a315f812ddc26b48ce80dd3f2cada3b75c06c12L433
 const HTML_TAG_RE =
@@ -37,7 +38,9 @@ export const withCapo = defineMiddleware(async (_context, next) => {
 
   const { document } = dom.window;
 
-  const tags = extractHTMLTags(document.querySelector("head")!.innerHTML);
+  const tags = extractHTMLTags(
+    document.querySelector("head")!.innerHTML
+  ).filter((t) => !t.attrs["data-vite-dev-id"]);
 
   // It's working because data-capo is being added to the html element
   const head = createHead({ plugins: [CapoPlugin({ track: true })] });
@@ -50,9 +53,11 @@ export const withCapo = defineMiddleware(async (_context, next) => {
     }
   }
 
-  await renderDOMHead(head, {
-    document,
-  });
+  if (isProduction) {
+    await renderDOMHead(head, {
+      document,
+    });
+  }
 
   const outputHtml = dom.serialize();
   // const outputHtml = html;
